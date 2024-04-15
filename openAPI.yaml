@@ -1,0 +1,307 @@
+openapi: 3.0.0
+info:
+  title: SportDB API
+  description: API per interagire con il database SportDB.
+  version: "1.0.0"
+servers:
+  - url: 'http://api.sportdb.example.com/v1'
+paths:
+  /articoli:
+    get:
+      tags:
+        - articoli
+      summary: Ottiene un elenco di tutti gli articoli
+      responses:
+        '200':
+          description: Un array di articoli
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Articolo'
+    post:
+      tags:
+        - articoli
+      summary: Crea un nuovo articolo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Articolo'
+      responses:
+        '201':
+          description: Articolo creato
+  /articoli/{id_articolo}:
+    put:
+      tags:
+        - articoli
+      summary: Aggiorna un articolo esistente
+      parameters:
+        - in: path
+          name: id_articolo
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Articolo'
+      responses:
+        '200':
+          description: Articolo aggiornato
+    delete:
+      tags:
+        - articoli
+      summary: Elimina un articolo
+      parameters:
+        - in: path
+          name: id_articolo
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Articolo eliminato
+  /clienti:
+    get:
+      tags:
+        - clienti
+      summary: Ottiene un elenco di tutti i clienti
+      responses:
+        '200':
+          description: Un array di clienti
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cliente'
+    post:
+      tags:
+        - clienti
+      summary: Registra un nuovo cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '201':
+          description: Cliente registrato
+  /clienti/{utente}:
+    put:
+      tags:
+        - clienti
+      summary: Aggiorna un cliente esistente
+      parameters:
+        - in: path
+          name: utente
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Cliente aggiornato
+    delete:
+      tags:
+        - clienti
+      summary: Elimina un cliente
+      parameters:
+        - in: path
+          name: utente
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Cliente eliminato
+  
+  /negozi:
+    get:
+      tags:
+        - negozi
+      summary: Ottiene un elenco di tutti i negozi
+      responses:
+        '200':
+          description: Un array di negozi
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Negozio'
+    post:
+      tags:
+        - negozi
+      summary: Aggiunge un nuovo negozio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Negozio'
+      responses:
+        '201':
+          description: Negozio aggiunto
+  /negozi/{num_telefonico}:
+    put:
+      tags:
+        - negozi
+      summary: Aggiorna un negozio esistente
+      parameters:
+        - in: path
+          name: num_telefonico
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Negozio'
+      responses:
+        '200':
+          description: Negozio aggiornato
+    delete:
+      tags:
+        - negozi
+      summary: Elimina un negozio
+      parameters:
+        - in: path
+          name: num_telefonico
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Negozio eliminato
+  
+  /sport:
+    get:
+      tags:
+        - sport
+      summary: Ottiene un elenco di tutti gli sport
+      responses:
+        '200':
+          description: Un array di sport
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sport'
+    post:
+      tags:
+        - sport
+      summary: Aggiunge un nuovo sport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sport'
+      responses:
+        '201':
+          description: Sport aggiunto
+  /sport/{nome_sport}:
+    put:
+      tags:
+        - sport
+      summary: Aggiorna uno sport esistente
+      parameters:
+        - in: path
+          name: nome_sport
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sport'
+      responses:
+        '200':
+          description: Sport aggiornato
+    delete:
+      tags:
+        - sport
+      summary: Elimina uno sport
+      parameters:
+        - in: path
+          name: nome_sport
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Sport eliminato
+components:
+  schemas:
+    Articolo:
+      type: object
+      properties:
+        nome:
+          type: string
+        id_articolo:
+          type: string
+        quantita:
+          type: integer
+        costo:
+          type: number
+        sport:
+          type: string
+      required:
+        - nome
+        - id_articolo
+        - quantita
+        - costo
+        - sport
+    Cliente:
+      type: object
+      properties:
+        uteme:
+          type: string
+        indirizzo:
+          type: string
+        password:
+          type: string
+      required:
+        - uteme
+        - indirizzo
+        - password
+    Negozio:
+      type: object
+      properties:
+        num_telefonico:
+          type: string
+        nome:
+          type: string
+        indirizzo:
+          type: string
+      required:
+        - num_telefonico
+        - nome
+        - indirizzo
+    Sport:
+      type: object
+      properties:
+        nome_sport:
+          type: string
+        descrizione:
+          type: string
+      required:
+        - nome_sport
+        - descrizione
